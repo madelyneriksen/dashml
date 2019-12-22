@@ -1,6 +1,6 @@
 .ONESHELL:
 SHELL := /bin/bash
-.PHONY: build upload format test
+.PHONY: build release format test bench all
 
 test:
 	pytest
@@ -8,12 +8,16 @@ test:
 	black --check dashml
 	exit ${STAT}
 
-build:
-	python setup.py sdist bdist_wheel
-
-upload:
-	python -m twine upload dist/*
-
 format:
 	black dashml
+
+bench:
+	python bench.py
+
+build: test
+	python setup.py sdist bdist_wheel
+
+release: build
+	python -m twine upload dist/*
+
 

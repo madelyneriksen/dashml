@@ -1,6 +1,6 @@
 from timeit import timeit
 from shutil import get_terminal_size
-from pyjsx import *
+from dashml import _, render
 
 
 ITERATIONS = 100_000
