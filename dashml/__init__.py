@@ -10,7 +10,7 @@ Usage:
 from .core import _, render, unsafe_from_string
 
 
-VERSION = "0.0.2"
+VERSION = "0.1.0"
 
 
 __all__ = ["_", "render", "unsafe_from_string", "VERSION"]
