@@ -1,4 +1,4 @@
-DashML - Functional HTML Generation
+DashML - HTML Components in Python
 ====================================
 
 <!-- Badge Spam -->
