@@ -2,7 +2,11 @@ import typing as t
 from functools import singledispatch, partial
 
 if t.TYPE_CHECKING:
-    from mypy_extensions import VarArg, KwArg
+    from mypy_extensions import VarArg, KwArg  # pragma: no cover
+else:
+    # Stub out for normal execution.
+    VarArg = lambda x: t.List[x]
+    KwArg = lambda x: t.Dict[str, x]
 
 from lxml.etree import Element
 import lxml.html as html
@@ -63,7 +67,7 @@ def safe(var: T) -> T:
 @safe.register
 def __safe_string(var: str) -> str:
     """Escape a string."""
-    return str(markupsafe.escape(var))
+    return str(markupsafe.escape(var))  # pragma: no cover
 
 
 def swap(from_attr: str, to_attr: str, values: t.Dict[str, str]) -> None:
