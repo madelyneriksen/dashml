@@ -36,7 +36,7 @@ class Builder:
     def __build(self, tag_name: str, *children: Child, **props: t.Any) -> Element:
         """Build an element."""
         swap_attributes(props)
-        safe_children = list(map(safe, children))
+        safe_children = [safe(x) for x in children if x is not None]
 
         tag = getattr(raw_builder, tag_name)
         return tag(*safe_children, **props)
