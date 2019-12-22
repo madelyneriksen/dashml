@@ -1,6 +1,12 @@
 DashML - Functional HTML Generation
 ====================================
 
+<!-- Badge Spam -->
+[![PyPI](https://img.shields.io/pypi/v/dashml?style=flat-square)](https://pypi.org/project/dashml/)
+![Code Style: Black](https://img.shields.io/badge/Code%20Style-Black-black?style=flat-square)
+[![GitHub issues](https://img.shields.io/github/issues/madelyneriksen/dashml?style=flat-square)](https://github.com/madelyneriksen/dashml/issues)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](/LICENSE)
+
 Create functions to build HTML in Python- inspired by the "component movement" in Javascript.
 
 ```python
@@ -154,7 +160,7 @@ mymodule/
 
 Additionally, it allows easier mirroring of objects in other modules. From the blog post example above:
 
-```
+```python
 # views.py
 
 from . import components
