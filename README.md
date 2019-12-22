@@ -28,6 +28,8 @@ DashML expands on existing Python libraries to create an ergonomic way to genera
 * `markupsafe` to prevent injection attacks (like React does!)
 * A minimal API you can pick up in ~15 minutes- DashML is so simple, you could have written it yourself!
 
+Adopting DashML in your project allows you to create traditional server rendered webpages faster, while embracing the good parts of component driven design.
+
 ## Get Started
 
 To get started with DashML, you will need:
@@ -188,6 +190,17 @@ def render_post(post: BlogPost):
 ```
 
 Additionally, every DashML component is ideally a _pure function_, that will always return the same result for a given input.
+
+#### Consider Functional CSS
+
+If you want to bring functional styling into your DashML components, consider using a css library like [Tachyons](https://tachyons.io/) for styling.
+
+```python
+def my_text(text: str):
+    return _.p(text, class_name="f5 f4-l lh-copy athelas")
+```
+
+Atomic/functional CSS blends _exceptionally_ well with DashML, and allows a full embracing of functional components in styles and markup.
 
 ## Special Thanks
 
