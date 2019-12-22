@@ -1,12 +1,9 @@
 import setuptools
+from dashml import VERSION
 
 
 with open("README.md") as file:
     long_desc = file.read()
-
-with open("VERSION") as file:
-    VERSION = file.read()
-
 
 setuptools.setup(
     name="dashml",
@@ -21,7 +18,7 @@ setuptools.setup(
     install_requires=[
         "lxml",
         "markupsafe",
-    ]
+    ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
