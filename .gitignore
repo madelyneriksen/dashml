@@ -1,6 +1,15 @@
-dist/
+# Python env
 .env/
+
+# Built Artifacts
+dist/
 __pycache__/
 *.egg-info
 build
+
+# Type Checking
 .mypy_cache/
+
+# Coverage
+htmlcov/
+.coverage
