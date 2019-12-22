@@ -108,7 +108,7 @@ Congrats! You've completed a tour of the DashML API. Here are some friendly sugg
 
 Writing out element names by hand everywhere is _no better_ than just writing plain HTML, and doesn't use the composable and reusable powers DashML has.
 
-For example, than typing out `_.h1(...)` everywhere, create a function called `header` that is specific to your project and creates the elements you need:
+For example, rather than typing out `_.h1(...)` everywhere, create a function called `header` that is specific to your project and creates the elements you need:
 
 ```python
 def header(text: str) -> 'Element':
