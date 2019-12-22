@@ -4,4 +4,5 @@ twine
 pytest
 pytest-cov
 black
+mypy
 -r requirements.txt
