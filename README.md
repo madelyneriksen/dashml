@@ -100,6 +100,18 @@ def greeter(name: str) -> 'Element':
 
 DashML attributes are always snake case. The attributes `class` and `for` are replaced with `class_name` and `html_for`. Additionally, attributes prefixed with `data_` or `aria_` are converted to use dashes instead of underscores. If you've used React, this probably feels familiar!
 
+### :warning: Unsafe Usage :warning:
+
+By default, DashML prevents XSS attacks by _escaping_ all text that goes into any elements. If you really want to use a raw HTML string, you can import `unsafe_from_string` and create raw elements that way.
+
+```python
+from dashml import unsafe_from_string
+
+element = unsafe_from_string('<script>alert("Unsafe!")</script>')
+```
+
+Remember, **this is not safe for untrusted strings,** and should only be used as an escape hatch if absolutely necessary. To stay safe, stick to normal usage of DashML.
+
 ## DashML Tips
 
 Congrats! You've completed a tour of the DashML API. Here are some friendly suggestions of how to use DashML effectively in your projects.
