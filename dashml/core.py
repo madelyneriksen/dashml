@@ -109,4 +109,4 @@ def unsafe_from_string(unsafe_string: str) -> Element:
     Returns:
         (Element) The converted element
     """
-    return unsafe_string
+    return html.fromstring(unsafe_string)
