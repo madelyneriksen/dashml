@@ -4,7 +4,7 @@ SHELL := /bin/bash
 
 test:
 	pytest
-	mypy --strict dashml
+	MYPYPATH=${PWD}/dashml/stubs mypy --strict dashml
 	black --check dashml
 	exit ${STAT}
 

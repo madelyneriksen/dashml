@@ -19,6 +19,7 @@ T = t.TypeVar("T")
 
 
 Child = t.Union[Element, str, None]
+Prop = t.Union[str, int, bool, None]
 
 
 class Builder:
@@ -35,7 +36,7 @@ class Builder:
         """Get an attribute."""
         return partial(self.__build, attr)
 
-    def __build(self, tag_name: str, *children: Child, **props: t.Any) -> Element:
+    def __build(self, tag_name: str, *children: Child, **props: Prop) -> Element:
         """Build an element.
 
         Arguments:
@@ -45,9 +46,11 @@ class Builder:
             element: (Element) An lxml Element.
         """
         swap_attributes(props)
-        safe_children = [safe(x) for x in children if x is not None]
+        safe_children: t.List[Child] = [safe(x) for x in children if x is not None]
 
-        tag = getattr(raw_builder, tag_name)
+        tag: t.Callable[[VarArg(Child), KwArg(Prop)], Element] = getattr(
+            raw_builder, tag_name
+        )
         return tag(*safe_children, **props)
 
 
@@ -67,7 +70,7 @@ _ = Builder()
 
 
 @singledispatch
-def safe(var: T) -> T:
+def safe(var: Child) -> Child:
     """Mark a value as safe."""
     return var
 
@@ -85,7 +88,7 @@ RESERVED_PAIRS = {
 }
 
 
-def swap_attributes(attrs: t.Dict[str, str]) -> None:
+def swap_attributes(attrs: t.Dict[str, Prop]) -> None:
     """Swap attribute values passed in as kwargs.
 
     This changes snake_case to use dashes for HTML, as well as doing swaps for
