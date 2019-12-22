@@ -1,0 +1,7 @@
+setuptools
+wheel
+twine
+pytest
+pytest-cov
+black
+-r requirements.txt
