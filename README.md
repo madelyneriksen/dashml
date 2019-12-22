@@ -200,7 +200,7 @@ def my_text(text: str):
     return _.p(text, class_name="f5 f4-l lh-copy athelas")
 ```
 
-Atomic/functional CSS blends _exceptionally_ well with DashML, and allows a full embracing of functional components in styles and markup.
+Atomic/functional CSS blends _exceptionally_ well with DashML, and allows the embracing of functional components in styles and markup.
 
 ## Special Thanks
 
