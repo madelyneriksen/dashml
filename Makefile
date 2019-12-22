@@ -18,6 +18,5 @@ build: test
 	python setup.py sdist bdist_wheel
 
 release: build
+	rm -rf dist
 	python -m twine upload dist/*
-
-
