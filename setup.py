@@ -18,6 +18,10 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/madelyneriksen/dashml",
     packages=["dashml"],
+    install_requires=[
+        "lxml",
+        "markupsafe",
+    ]
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
