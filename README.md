@@ -20,11 +20,11 @@ Create functions to build HTML in Python- inspired by the "component movement" i
 
 JavaScript frameworks like React or Vue took over the frontend landscape because of the ease of creating reusable components. React _especially_ thrives with the fact that components are _code_, and can be manipulated as such.
 
-Meanwhile, server-side languages are stuck with difficult to compose template languages to generate HTML. It's hard to extract components out of Jinja2 or Django templates to re-use.
+Meanwhile, server-side languages are stuck with clunky template languages to generate HTML. It's hard to extract components out of Jinja2 or Django templates to re-use.
 
 DashML expands on existing Python libraries to create an ergonomic way to generate HTML in Python.
 
-* Built on `lxml` (and in turn built on C) for extreme speed- check out the benchmarks (or run them yourself!).
+* Built on `lxml` (and in turn built on C) for extreme speed- check out the [benchmarks](#benchmarks) (or run them yourself!).
 * `markupsafe` to prevent injection attacks (like React does!)
 * A minimal API you can pick up in ~15 minutes- DashML is so simple, you could have written it yourself!
 
@@ -201,6 +201,29 @@ def my_text(text: str):
 ```
 
 Atomic/functional CSS blends _exceptionally_ well with DashML, and allows the embracing of functional components in styles and markup.
+
+## Benchmarks
+
+Since DashML relies on `lxml` for components, it's fast. Very, very fast. Rendering components is generally a sub-millisecond operation if no external action happens in the component.
+
+```
+===============================================================
+Benchmark: 'Simple HTML document.'
+===============================================================
+344.982 miliseconds for 5000 renders of 'Simple HTML document.'
+Avg 0.069 miliseconds for one render.
+```
+
+Obviously, adding things like HTTP requests, database queries, or complex calculations to renders will slow them down. But why are you doing that, [keep logic separate!](#and-keep-business-logic-out-of-components).
+
+You can run the benchmarks yourself locally by cloning and installing the project:
+
+```bash
+git clone https://github.com/madelyneriksen/dashml/
+cd dashml
+python -m venv .env && source .env/bin/activate && pip install -r requirements.dev.txt
+python bench.py # or `make bench`
+```
 
 ## Special Thanks
 
