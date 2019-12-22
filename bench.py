@@ -3,7 +3,7 @@ from shutil import get_terminal_size
 from dashml import _, render
 
 
-ITERATIONS = 100_000
+ITERATIONS = 5_000
 COLS, ROWS = get_terminal_size((80, 80))
 
 
