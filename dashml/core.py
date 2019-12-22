@@ -20,12 +20,6 @@ __all__ = ["_", "render"]
 
 T = t.TypeVar("T")
 
-# Like `className` or `htmlFor` in React.
-RESERVED_PAIRS = [
-    ["class_name", "class"],
-    ["html_for", "for"],
-]
-
 
 Child = t.Union[Element, str]
 
@@ -41,9 +35,7 @@ class Builder:
 
     def __build(self, tag_name: str, *children: Child, **props: t.Any) -> Element:
         """Build an element."""
-        for from_attr, to_attr in RESERVED_PAIRS:
-            swap(from_attr, to_attr, props)
-
+        swap_attributes(props)
         safe_children = list(map(safe, children))
 
         tag = getattr(raw_builder, tag_name)
@@ -70,8 +62,21 @@ def __safe_string(var: str) -> str:
     return str(markupsafe.escape(var))  # pragma: no cover
 
 
-def swap(from_attr: str, to_attr: str, values: t.Dict[str, str]) -> None:
-    """Swap values in a dictionary."""
-    contained_value = values.pop(from_attr, None)
-    if contained_value is not None:
-        values[to_attr] = contained_value
+# Like `className` or `htmlFor` in React.
+RESERVED_PAIRS = {
+    "class_name": "class",
+    "html_for": "for",
+}
+
+
+def swap_attributes(attrs: t.Dict[str, str]) -> None:
+    """Swap attribute values passed in as kwargs.
+
+    This changes snake_case to use dashes for HTML, as well as doing swaps for
+    class_name and html_for.
+    """
+    for key, value in attrs.items():
+        if key.startswith("data_") or key.startswith("aria_"):
+            attrs[key.replace("_", "-")] = attrs.pop(key)
+        elif key in RESERVED_PAIRS:
+            attrs[RESERVED_PAIRS[key]] = attrs.pop(key)

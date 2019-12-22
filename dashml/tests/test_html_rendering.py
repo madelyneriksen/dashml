@@ -19,6 +19,30 @@ def test_html_for_swapped():
     assert val == '<label for="my-input"></label>'
 
 
+def test_render_aria():
+    """Test the rendering of aria attributes."""
+
+    val = render(_.button("Close", aria_label="Close"))
+    assert val == '<button aria-label="Close">Close</button>'
+
+    val = render(
+        _.button("Collapse", aria_expanded="false", aria_controls="collapsible-0")
+    )
+    assert (
+        val
+        == '<button aria-expanded="false" aria-controls="collapsible-0">Collapse</button>'
+    )
+
+
+def test_render_data():
+    """Test the rendering of data attributes."""
+    val = render(_.div(data_text="Some text!"))
+    assert val == '<div data-text="Some text!"></div>'
+
+    val = render(_.div(data_lots_of_dashes="value"))
+    assert val == '<div data-lots-of-dashes="value"></div>'
+
+
 # =======================================
 # Usage Tests
 # Tests with more complicated documents.
