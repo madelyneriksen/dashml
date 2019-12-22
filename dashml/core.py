@@ -15,17 +15,19 @@ from lxml.builder import E as raw_builder
 import markupsafe
 
 
-__all__ = ["_", "render"]
-
-
 T = t.TypeVar("T")
 
 
-Child = t.Union[Element, str]
+Child = t.Union[Element, str, None]
 
 
 class Builder:
-    """HTML5-aware builder class for Python."""
+    """DashML Markup Builder.
+
+    Allows the creation of lxml.html elements via overriding __getattr__.
+
+    >>> _.p("Hello world!")
+    """
 
     def __getattr__(
         self, attr: str
@@ -34,7 +36,14 @@ class Builder:
         return partial(self.__build, attr)
 
     def __build(self, tag_name: str, *children: Child, **props: t.Any) -> Element:
-        """Build an element."""
+        """Build an element.
+
+        Arguments:
+            tag_name: (str) The name of the HTML tag to build.
+            children: (Child) A list of strings, Elements, or None
+        Returns:
+            element: (Element) An lxml Element.
+        """
         swap_attributes(props)
         safe_children = [safe(x) for x in children if x is not None]
 
@@ -43,6 +52,13 @@ class Builder:
 
 
 def render(ele: Element) -> str:
+    """Render an Element to a string.
+
+    Arguments:
+        ele: (Element) The element to render.
+    Returns:
+        (str) Rendered utf-8 string of the element.
+    """
     raw: bytes = html.tostring(ele)
     return raw.decode("utf-8")
 
@@ -80,3 +96,17 @@ def swap_attributes(attrs: t.Dict[str, str]) -> None:
             attrs[key.replace("_", "-")] = attrs.pop(key)
         elif key in RESERVED_PAIRS:
             attrs[RESERVED_PAIRS[key]] = attrs.pop(key)
+
+
+def unsafe_from_string(unsafe_string: str) -> Element:
+    """UNSAFE: Create an element from a string, skipping escaping.
+
+    HTML will _not_ be escaped by this function, so using it with an untrusted
+    string is a security vulnerability and could allow XSS attacks!
+
+    Arguments:
+        unsafe_string: (str) A string to convert to an element.
+    Returns:
+        (Element) The converted element
+    """
+    return unsafe_string

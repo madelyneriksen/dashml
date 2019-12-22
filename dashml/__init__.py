@@ -7,10 +7,10 @@ Usage:
 "<p>Hello world!</p>"
 """
 
-from .core import _, render
+from .core import _, render, unsafe_from_string
 
 
 VERSION = "0.0.2"
 
 
-__all__ = ["_", "render", "VERSION"]
+__all__ = ["_", "render", "unsafe_from_string", "VERSION"]
