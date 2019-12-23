@@ -8,7 +8,7 @@ else:
     VarArg = lambda x: t.List[x]
     KwArg = lambda x: t.Dict[str, x]
 
-from lxml.etree import _Element
+from lxml.etree import _Element as Element
 import lxml.html as html
 from lxml.builder import E as raw_builder
 
@@ -17,7 +17,6 @@ __all__ = ["_", "render", "unsafe_from_string"]
 
 
 T = t.TypeVar("T")
-Element = _Element
 Child = t.Union[Element, str, int, float, None]
 Prop = t.Union[str, int, float, bool, None]
 
@@ -71,7 +70,7 @@ _ = Builder()
 
 def safe(var: Child) -> Child:
     """Mark a value as safe."""
-    if isinstance(var, _Element):
+    if isinstance(var, Element):
         return var
     else:
         return str(var)
