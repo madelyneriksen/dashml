@@ -1,24 +1,13 @@
 import typing as t
 from functools import singledispatch, partial
 
-if t.TYPE_CHECKING:
-    from mypy_extensions import VarArg, KwArg  # pragma: no cover
-else:
-    # Stub out for normal execution.
-    VarArg = lambda x: t.List[x]
-    KwArg = lambda x: t.Dict[str, x]
+from dashml.types import Child, Prop, BuilderCallable, Element
 
-from lxml.etree import _Element as Element
 import lxml.html as html
 from lxml.builder import E as raw_builder
 
 
 __all__ = ["_", "render", "unsafe_from_string"]
-
-
-T = t.TypeVar("T")
-Child = t.Union[Element, str, int, float, None]
-Prop = t.Union[str, int, float, bool, None]
 
 
 class Builder:
@@ -29,9 +18,7 @@ class Builder:
     >>> _.p("Hello world!")
     """
 
-    def __getattr__(
-        self, attr: str
-    ) -> t.Callable[[VarArg(Child), KwArg(t.Any)], Element]:
+    def __getattr__(self, attr: str) -> BuilderCallable:
         """Get an attribute."""
         return partial(self.__build, attr)
 
@@ -47,9 +34,7 @@ class Builder:
         swap_attributes(props)
         safe_children: t.List[Child] = [safe(x) for x in children if x is not None]
 
-        tag: t.Callable[[VarArg(Child), KwArg(Prop)], Element] = getattr(
-            raw_builder, tag_name
-        )
+        tag: BuilderCallable = getattr(raw_builder, tag_name)
         return tag(*safe_children, **props)
 
 
