@@ -4,11 +4,11 @@ Usage:
 
 >>> from dashml import render, _
 >>> render(_.p("Hello world!"))
-"<p>Hello world!</p>"
+'<p>Hello world!</p>'
 """
 
-from .html import render, unsafe_from_string
-from .builder import Builder
+from dashml.html import render, unsafe_from_string
+from dashml.builder import Builder
 
 
 __all__ = ["_", "render", "unsafe_from_string", "VERSION"]

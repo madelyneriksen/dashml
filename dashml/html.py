@@ -5,6 +5,7 @@ as an argument and returns an HTML representation of it.
 
 >>> from dashml import _, render
 >>> render(_.p("Hello world!"))
+'<p>Hello world!</p>'
 
 Additionally, the method `unsafe_from_string` exists here to transform
 trusted HTML strings into DashML/lxml Element instances. Use this great
