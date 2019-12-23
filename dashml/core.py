@@ -61,8 +61,7 @@ def render(ele: Element) -> str:
     Returns:
         (str) Rendered utf-8 string of the element.
     """
-    raw: bytes = html.tostring(ele)
-    return raw.decode("utf-8")
+    return html.tostring(ele).decode("utf-8")
 
 
 _ = Builder()
