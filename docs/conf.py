@@ -10,9 +10,12 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath('.'))
+
+from dashml import VERSION
 
 
 # -- Project information -----------------------------------------------------
@@ -22,7 +25,7 @@ copyright = '2019, Madelyn Eriksen'
 author = 'Madelyn Eriksen'
 
 # The full version, including alpha/beta/rc tags
-release = '2019-12-22'
+release = VERSION
 
 
 # -- General configuration ---------------------------------------------------
