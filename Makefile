@@ -1,6 +1,6 @@
 .ONESHELL:
 SHELL := /bin/bash
-.PHONY: build release format test bench all
+.PHONY: build release format test bench all docs
 
 test:
 	pytest
@@ -20,3 +20,8 @@ build: test
 
 release: build
 	python -m twine upload dist/*
+
+docs:
+	mkdir -p dist
+	mkdir -p dist/docs
+	sphinx-build -b html docs dist/docs 

@@ -15,6 +15,9 @@ from lxml.builder import E as raw_builder
 import markupsafe
 
 
+__all__ = ["_", "render", "unsafe_from_string"]
+
+
 T = t.TypeVar("T")
 
 
@@ -58,7 +61,7 @@ def render(ele: Element) -> str:
     """Render an Element to a string.
 
     Arguments:
-        ele: (Element) The element to render.
+        ele (Element): The element to render.
     Returns:
         (str) Rendered utf-8 string of the element.
     """
@@ -108,7 +111,7 @@ def unsafe_from_string(unsafe_string: str) -> Element:
     string is a security vulnerability and could allow XSS attacks!
 
     Arguments:
-        unsafe_string: (str) A string to convert to an element.
+        unsafe_string (str): A string to convert to an element.
     Returns:
         (Element) The converted element
     """
