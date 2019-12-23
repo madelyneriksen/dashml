@@ -8,7 +8,7 @@ Like most Python packages, DashML is available on the Python Package Index for i
 pip install dashml
 ```
 
-When you install DashML, its two dependencies [MarkupSafe](https://pypi.org/project/MarkupSafe/) and [lxml](https://pypi.org/project/lxml/) will be installed as well.
+When you install DashML, its dependency [lxml](https://pypi.org/project/lxml/) will be installed as well.
 
 ## Create A Component
 

@@ -8,21 +8,18 @@ else:
     VarArg = lambda x: t.List[x]
     KwArg = lambda x: t.Dict[str, x]
 
-from lxml.etree import Element
+from lxml.etree import _Element
 import lxml.html as html
 from lxml.builder import E as raw_builder
-
-import markupsafe
 
 
 __all__ = ["_", "render", "unsafe_from_string"]
 
 
 T = t.TypeVar("T")
-
-
-Child = t.Union[Element, str, None]
-Prop = t.Union[str, int, bool, None]
+Element = _Element
+Child = t.Union[Element, str, int, float, None]
+Prop = t.Union[str, int, float, bool, None]
 
 
 class Builder:
@@ -72,16 +69,12 @@ def render(ele: Element) -> str:
 _ = Builder()
 
 
-@singledispatch
 def safe(var: Child) -> Child:
     """Mark a value as safe."""
-    return var
-
-
-@safe.register
-def __safe_string(var: str) -> str:
-    """Escape a string."""
-    return str(markupsafe.escape(var))  # pragma: no cover
+    if isinstance(var, _Element):
+        return var
+    else:
+        return str(var)
 
 
 # Like `className` or `htmlFor` in React.
@@ -98,10 +91,19 @@ def swap_attributes(attrs: t.Dict[str, Prop]) -> None:
     class_name and html_for.
     """
     for key, value in attrs.items():
+        if isinstance(value, bool) or value is None:
+            # Convert booleans/Nonetypes into HTML5 compatible booleans.
+            if value:
+                attrs[key] = ""
+            else:
+                del attrs[key]
+                continue
         if key.startswith("data_") or key.startswith("aria_"):
-            attrs[key.replace("_", "-")] = attrs.pop(key)
+            attrs[key.replace("_", "-")] = str(attrs.pop(key))
         elif key in RESERVED_PAIRS:
-            attrs[RESERVED_PAIRS[key]] = attrs.pop(key)
+            attrs[RESERVED_PAIRS[key]] = str(attrs.pop(key))
+        else:
+            attrs[key] = str(value)
 
 
 def unsafe_from_string(unsafe_string: str) -> Element:

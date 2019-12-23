@@ -17,7 +17,6 @@ setuptools.setup(
     packages=["dashml"],
     install_requires=[
         "lxml",
-        "markupsafe",
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
