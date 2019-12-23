@@ -1,41 +1,17 @@
 import typing as t
-from functools import singledispatch, partial
-
-from dashml.types import Child, Prop, BuilderCallable, Element
-from dashml.clean import safe_children, safe_props
+from functools import partial
 
 import lxml.html as html
-from lxml.builder import E as raw_builder
+
+from dashml.builder import Builder
+from dashml.clean import safe_children, safe_props
+from dashml.types import Child, Prop, BuilderCallable, Element
 
 
 __all__ = ["_", "render", "unsafe_from_string"]
 
 
-class Builder:
-    """DashML Markup Builder.
-
-    Allows the creation of lxml.html elements via overriding __getattr__.
-
-    >>> _.p("Hello world!")
-    """
-
-    def __getattr__(self, attr: str) -> BuilderCallable:
-        """Get an attribute."""
-        return partial(self.__build, attr)
-
-    def __build(self, tag_name: str, *children: Child, **props: Prop) -> Element:
-        """Build an element.
-
-        Arguments:
-            tag_name (str): The name of the HTML tag to build.
-            children (Child): A list of strings, Elements, or None
-        Keyword Arguments:
-            properties (Prop): A list of HTML5 properties.
-        Returns:
-            (Element) An lxml Element.
-        """
-        tag: BuilderCallable = getattr(raw_builder, tag_name)
-        return tag(*safe_children(children), **safe_props(props))
+_ = Builder()
 
 
 def render(ele: Element) -> str:
@@ -47,9 +23,6 @@ def render(ele: Element) -> str:
         (str) Rendered utf-8 string of the element.
     """
     return html.tostring(ele).decode("utf-8")
-
-
-_ = Builder()
 
 
 def unsafe_from_string(unsafe_string: str) -> Element:
