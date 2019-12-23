@@ -2,6 +2,7 @@ import typing as t
 from functools import singledispatch, partial
 
 from dashml.types import Child, Prop, BuilderCallable, Element
+from dashml.clean import safe_children, safe_props
 
 import lxml.html as html
 from lxml.builder import E as raw_builder
@@ -26,16 +27,15 @@ class Builder:
         """Build an element.
 
         Arguments:
-            tag_name: (str) The name of the HTML tag to build.
-            children: (Child) A list of strings, Elements, or None
+            tag_name (str): The name of the HTML tag to build.
+            children (Child): A list of strings, Elements, or None
+        Keyword Arguments:
+            properties (Prop): A list of HTML5 properties.
         Returns:
-            element: (Element) An lxml Element.
+            (Element) An lxml Element.
         """
-        swap_attributes(props)
-        safe_children: t.List[Child] = [safe(x) for x in children if x is not None]
-
         tag: BuilderCallable = getattr(raw_builder, tag_name)
-        return tag(*safe_children, **props)
+        return tag(*safe_children(children), **safe_props(props))
 
 
 def render(ele: Element) -> str:
@@ -50,43 +50,6 @@ def render(ele: Element) -> str:
 
 
 _ = Builder()
-
-
-def safe(var: Child) -> Child:
-    """Mark a value as safe."""
-    if isinstance(var, Element):
-        return var
-    else:
-        return str(var)
-
-
-# Like `className` or `htmlFor` in React.
-RESERVED_PAIRS = {
-    "class_name": "class",
-    "html_for": "for",
-}
-
-
-def swap_attributes(attrs: t.Dict[str, Prop]) -> None:
-    """Swap attribute values passed in as kwargs.
-
-    This changes snake_case to use dashes for HTML, as well as doing swaps for
-    class_name and html_for.
-    """
-    for key, value in attrs.items():
-        if isinstance(value, bool) or value is None:
-            # Convert booleans/Nonetypes into HTML5 compatible booleans.
-            if value:
-                attrs[key] = ""
-            else:
-                del attrs[key]
-                continue
-        if key.startswith("data_") or key.startswith("aria_"):
-            attrs[key.replace("_", "-")] = str(attrs.pop(key))
-        elif key in RESERVED_PAIRS:
-            attrs[RESERVED_PAIRS[key]] = str(attrs.pop(key))
-        else:
-            attrs[key] = str(value)
 
 
 def unsafe_from_string(unsafe_string: str) -> Element:
