@@ -25,7 +25,6 @@ Meanwhile, server-side languages are stuck with clunky template languages to gen
 DashML expands on existing Python libraries to create an ergonomic way to generate HTML in Python.
 
 * Built on `lxml` (and in turn built on C) for extreme speed- check out the [benchmarks](#benchmarks) (or run them yourself!).
-* `markupsafe` to prevent injection attacks (like React does!)
 * A minimal API you can pick up in ~15 minutes- DashML is so simple, you could have written it yourself!
 
 Adopting DashML in your project allows you to create traditional server rendered webpages faster, while embracing the good parts of component driven design.
