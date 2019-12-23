@@ -14,5 +14,5 @@ from dashml.builder import Builder
 __all__ = ["_", "render", "unsafe_from_string", "VERSION"]
 
 
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 _ = Builder()
