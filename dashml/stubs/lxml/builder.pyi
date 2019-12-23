@@ -1,6 +1,6 @@
 import typing as t
 
-from lxml.etree import Element
+from lxml.etree import _Element as Element
 
 from mypy_extensions import VarArg, KwArg
 
