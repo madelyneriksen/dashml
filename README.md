@@ -3,7 +3,7 @@ DashML - HTML Components in Python
 
 <!-- Badge Spam -->
 [![PyPI](https://img.shields.io/pypi/v/dashml?style=flat-square)](https://pypi.org/project/dashml/)
-[![GitHub issues](https://img.shields.io/github/issues/madelyneriksen/dashml?style=flat-square)](https://github.com/madelyneriksen/dashml/issues)
+[![GitHub issues](https://img.shields.io/github/issues/madelyneriksen/dashml?color=green&style=flat-square)](https://github.com/madelyneriksen/dashml/issues)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](/LICENSE)
 ![Code Style: Black](https://img.shields.io/badge/Code%20Style-Black-black?style=flat-square)
 
