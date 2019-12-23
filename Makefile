@@ -1,12 +1,11 @@
-.ONESHELL:
 SHELL := /bin/bash
-.PHONY: build release format test bench all docs
+.PHONY: build release format test bench all docs serve-docs
 
 test:
 	pytest
+	python -m doctest dashml/*.py
 	MYPYPATH=${PWD}/dashml/stubs mypy --strict dashml
 	black --check dashml
-	exit ${STAT}
 
 format:
 	black dashml
@@ -25,3 +24,6 @@ docs:
 	mkdir -p dist
 	mkdir -p dist/docs
 	sphinx-build -b html docs dist/docs 
+
+serve-docs: docs
+	cd dist/docs && python -m http.server
