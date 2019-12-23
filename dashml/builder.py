@@ -13,6 +13,9 @@ from dashml.types import Child, Prop, BuilderCallable, Element
 from dashml.clean import safe_children, safe_props
 
 
+__all__ = ["Builder"]
+
+
 class Builder:
     """DashML Markup Builder.
 
