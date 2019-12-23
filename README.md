@@ -242,7 +242,6 @@ python bench.py # or `make bench`
 DashML could not be built without these libraries:
 
 * [lxml](https://lxml.de) for creating a _fast_ XML library.
-* [Pallets Projects](https://palletsprojects.com/) for creating MarkupSafe
 
 ## License
 
